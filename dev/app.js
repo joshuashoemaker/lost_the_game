@@ -171,9 +171,9 @@ function beginRound(){
 }
 
 function beginClicked(){
-  let instructions = document.getElementById('messege');
-  instructions.innerHTML = ""
-  instructions.className = "hidden";
+  let messege = document.getElementById('messege');
+  messege.innerHTML = ""
+  messege.className = "hidden";
   timeInterval = setInterval(countDown, 10);
   beginRound();
 }
@@ -263,6 +263,15 @@ function renderAttempts(){
   }, this);
 }
 
+
+function renderEndGame(){
+  document.getElementById('entry_table').innerHTML = "";
+  let messege = document.getElementById('messege');
+
+  messege.innerHTML = "<p>You have found her! It was not easy, but your diligence paid off. Continue to send an anonyms tip to the F.B.I.</p><button onclick='redirectToFoundation()'>REPORT</button>"
+  messege.className = "";
+}
+
 function checkStatus(){
   if(lockoutHits >= lockoutMax){
     gameLose();
@@ -282,6 +291,11 @@ function gameLose(){
   Array.prototype.forEach.call(entryElements, function(e) {
     e.className = "entry error"
   }, this);
+
+  
+  setTimeout(function(){
+    window.location.reload(true)
+  }, 4000); 
 }
 
 function gameWin(){
@@ -291,6 +305,8 @@ function gameWin(){
   targetElement.className = "win";
   clearInterval(timeInterval);
   timerElement.innerHTML = 0;
+
+  renderEndGame();
 
   console.log("Game Win");
 }
@@ -303,4 +319,8 @@ function countDown(){
   else{
     gameLose();
   }
+}
+
+function redirectToFoundation(){
+  window.open('http://waynefdn.org/', '_blank')
 }
