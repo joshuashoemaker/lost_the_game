@@ -154,6 +154,7 @@ function compareIpAddress(value){
 
 function beginRound(){
   document.getElementById('entry_table').innerHTML = "";
+  ipAttempts = [];
   let entryArray = createEntryArray();
   let htmlArray = createEntryHTMLArray(entryArray);
   let entryHTMLString = concatEntryHTMLArray(htmlArray);
@@ -163,6 +164,7 @@ function beginRound(){
   renderEntries(entryHTMLString);
   assignClickEvent(entryElements);
   renderSuccessPrecentage(score * 100/winScore);
+  renderAttempts();
 
   console.log(targetIpAddress);
 
