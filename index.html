@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Lost</title>
+
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+    <section class="screen">
+        <h3 id="title">DISPLAY REPORT</h3>
+        <section class="score-wrapper">
+
+            <div class="left">
+                <h3>TRACKING SUCCESS: <span class="green" id="precentage"></span></h3>
+                <h3>QUERY: <span class="green" id="query-name"></span></h3>
+            </div>
+        
+            <div class="right">
+                <h3>BRUTE FORCE LOCKOUT: <span class="green" id="lockout"></span></h3>
+                <h3>TIME LOCKOUT: <span class="green" id="timer"></span>MS</h3>
+            </div>
+        </section>
+        
+        <hr>
+        
+        <section id="play-wrapper">
+
+            <table>
+                <thead>
+                    <tr class="green">
+                        <th>IP ADDRESS</th>
+                        <th>ACTIVE</th>
+                        <th>HOST_NAME</th>
+                        <th>MACHINE_TYPE</th>
+                        <th>LAST_RESPONCE</th>
+                        <th>SYSTEM_LOCATION</th>
+                    </tr>
+                </thead>
+
+                <tbody id="entry_table">
+                    
+                </tbody>
+            </table>
+        </section>
+
+        <hr>
+
+        <section class="response-wrapper">
+            <table id="attempted-ips">
+                <thead>
+                    <th class="green">ATTEMPTS</th>
+                    <th class="green">SHARED CHARS</th>
+                </thead>
+
+                <tbody id="attempts_table">
+                    
+                </tbody>
+            </table>
+        </section>
+
+    </section>
+
+    
+
+
+</body>
+
+
+<script src="levenshtein.js"></script>
+<script src="app.js"></script>
+
+</html>
