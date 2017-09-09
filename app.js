@@ -1,6 +1,6 @@
 //----------Constant Values and Objects---------
 let targetIpAddress = '';
-const lockoutMax = 4;
+const lockoutMax = 9;
 let lockoutHits = 0;
 let ipAttempts = [];
 let time = 460000;
@@ -8,6 +8,8 @@ let lose = false;
 let win = false;
 let timerElement = document.getElementById('timer');
 let timeInterval = {};
+let score = 0;
+let winScore = 7;
 
 const systemTypes = ["HIDDEN", "KALILINUX", "WINDOWSXP", "WINDOWS2000", 
                     "WINDOWS10", "REDHAT", "ANDROID4.4", "NETHUNTER"];
@@ -68,7 +70,7 @@ function createEntryHTML(entry){
                           <td>"+ hostName +"</td>\
                           <td>"+ machineType +"</td>\
                           <td>"+ lastResponse +"MS</td>\
-                          <td>"+ systemLocation.long + "-" + systemLocation.lat +"</td>\
+                          <td>"+ systemLocation.long + "_" + systemLocation.lat +"</td>\
                       </tr>\
                     </tbody>"
 
@@ -150,7 +152,8 @@ function compareIpAddress(value){
 
 //----------Business Logic--------
 
-function init(){
+function beginRound(){
+  document.getElementById('entry_table').innerHTML = "";
   let entryArray = createEntryArray();
   let htmlArray = createEntryHTMLArray(entryArray);
   let entryHTMLString = concatEntryHTMLArray(htmlArray);
@@ -159,10 +162,18 @@ function init(){
   targetIpAddress = selectTargetIpAddress(entryArray);
   renderEntries(entryHTMLString);
   assignClickEvent(entryElements);
-  timeInterval = setInterval(countDown, 10);
+  renderSuccessPrecentage(score * 100/winScore);
 
   console.log(targetIpAddress);
 
+}
+
+function beginClicked(){
+  let instructions = document.getElementById('messege');
+  instructions.innerHTML = ""
+  instructions.className = "hidden";
+  timeInterval = setInterval(countDown, 10);
+  beginRound();
 }
 
 
@@ -184,7 +195,6 @@ function clickedEntry(entry){
       
     if(ipDifference === 10){
       targetIpAddressFound(entry);
-      renderSuccessPrecentage(100)
     }
     else{
       wrongEntrySelected(entry, ipDifference);
@@ -192,12 +202,18 @@ function clickedEntry(entry){
       renderSuccessPrecentage(ipDifference * 10);
       checkStatus();
     }
-}
+  }
 }
 
 
 function targetIpAddressFound(entry){
-  gameWin();
+  score += 1;
+  if(score > winScore - 1){
+    gameWin();
+  }
+  else{
+    beginRound();
+  }
 }
 
 
@@ -215,8 +231,7 @@ function wrongEntrySelected(entry, similarity){
 
 function renderSuccessPrecentage(percentage){
   let successPercentage =  document.getElementById('precentage');
-  successPercentage.innerHTML = percentage + "%";
-
+  successPercentage.innerHTML = Math.floor(percentage) + "%";
 }
 
 
@@ -274,6 +289,8 @@ function gameWin(){
   targetElement.className = "win";
   clearInterval(timeInterval);
   timerElement.innerHTML = 0;
+
+  console.log("Game Win");
 }
 
 function countDown(){
@@ -285,5 +302,3 @@ function countDown(){
     gameLose();
   }
 }
-
-init();
