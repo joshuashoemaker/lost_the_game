@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Lost</title>
+
+  <link rel="stylesheet" href="dist/style.css">
+
+</head>
+
+<body>
+    <section class="screen">
+        <h3 id="title">DISPLAY REPORT</h3>
+        <section class="score-wrapper">
+
+            <div class="left">
+                <h3>TRACKING SUCCESS: <span class="green" id="precentage"></span></h3>
+                <h3>QUERY: <span class="green" id="query-name">KATLYEN HICKS</span></h3>
+            </div>
+        
+            <div class="right">
+                <h3>BRUTE FORCE LOCKOUT: <span class="green" id="lockout"></span></h3>
+                <h3>TIME LOCKOUT: <span class="green" id="timer"></span>MS</h3>
+            </div>
+        </section>
+        
+        <hr>
+        
+        <section id="play-wrapper">
+
+            <div  id="messege">
+
+            <p>Several months ago, your loved one Katlyen Hicks went missing. You have connections 
+                do several deep and dark web users. They have informed you that they ave seen websites known for human 
+                trafficing that have posted advertisements with her picture. These websites are only accessible by using
+                the T.O.R network. A network designed to mask origins of internet conections to keep communications hidden.
+                Like any system, it has its weak points. These dark web user friends of yours have taught you secrets of 
+                the trade of computer hacking and tracking. You have now build a tool to help you narrorw down the source 
+                of these website owners. The T.O.R. network masks its users by bouncing their signals all accross the globe 
+                so much so that they are almost impossible to track. You however are able to track the different network nodes
+                and find the roots of the signals. Your tool will allow you select IP addresses and determine if it is an actual 
+                node being used. This tool will let you know how accurate your choice is so you can accuratly make a new selection.
+                You only have so long before you are lockout out of the system's vulnerabilities. Use this toime appropriately, you 
+                will need to lock onto several signals to find rthe capture of your loved one.
+            </p>
+
+            <button onclick="beginClicked()">BEGIN</button>
+
+            </div>
+
+            <table>
+                <thead>
+                    <tr class="green">
+                        <th>IP ADDRESS</th>
+                        <th>ACTIVE</th>
+                        <th>HOST_NAME</th>
+                        <th>MACHINE_TYPE</th>
+                        <th>LAST_RESPONCE</th>
+                        <th>SYSTEM_LOCATION</th>
+                    </tr>
+                </thead>
+
+                <tbody id="entry_table">
+                    
+                </tbody>
+            </table>
+        </section>
+
+        <hr>
+
+        <section class="response-wrapper">
+            <table id="attempted-ips">
+                <thead>
+                    <th class="green">ATTEMPTS</th>
+                    <th class="green">SHARED CHARS</th>
+                </thead>
+
+                <tbody id="attempts_table">
+                    
+                </tbody>
+            </table>
+        </section>
+
+    </section>
+
+    
+
+
+</body>
+
+
+<script src="dist/app.js"></script>
+
+</html>
