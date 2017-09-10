@@ -2,6 +2,7 @@
 let targetIpAddress = '';
 const lockoutMax = 9;
 let lockoutHits = 0;
+const amountOfIps = 20;
 let ipAttempts = [];
 let time = 460000;
 let lose = false;
@@ -105,7 +106,7 @@ function createEntryArray(){
   
   let entries = [];
 
-  for(i = 0; i < 27; i++){
+  for(i = 0; i < amountOfIps; i++){
     entries.push(new Entry());
   }
 
@@ -268,7 +269,7 @@ function renderEndGame(){
   document.getElementById('entry_table').innerHTML = "";
   let messege = document.getElementById('messege');
 
-  messege.innerHTML = "<p>You have found her! It was not easy, but your diligence paid off. Continue to send an anonyms tip to the F.B.I.</p><button onclick='redirectToFoundation()'>REPORT</button>"
+  messege.innerHTML = "<p>You have found her! It was not easy, but your diligence paid off. The data you have collected has been sent to the F.B.I. Please help actually fight human trafficking by donating to one of several private organizations or report tips to goverment agencies that do just that!</p><button onclick='redirectToFoundation()'>HELP</button>"
   messege.className = "";
 }
 
@@ -322,5 +323,5 @@ function countDown(){
 }
 
 function redirectToFoundation(){
-  window.open('http://waynefdn.org/', '_blank')
+  window.open('https://www.dhs.gov/blue-campaign/identify-victim?utm_source=bing&utm_medium=cpc&utm_campaign=search-p1.broad-allcit-allpri&utm_content=trafficking&utm_term=%2Btrafficking', '_blank')
 }
