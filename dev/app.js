@@ -1,6 +1,6 @@
 //----------Constant Values and Objects---------
 let targetIpAddress = '';
-const lockoutMax = 9;
+const lockoutMax = 12;
 let lockoutHits = 0;
 const amountOfIps = 20;
 let ipAttempts = [];
@@ -10,7 +10,7 @@ let win = false;
 let timerElement = document.getElementById('timer');
 let timeInterval = {};
 let score = 0;
-let winScore = 7;
+let winScore = 3;
 
 const systemTypes = ["HIDDEN", "KALILINUX", "WINDOWSXP", "WINDOWS2000", 
                     "WINDOWS10", "REDHAT", "ANDROID4.4", "NETHUNTER"];
