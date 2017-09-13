@@ -175,10 +175,13 @@ function compareIpAddress(value){
 }
 
 
-
+/*These functions are used to alter the state of the application. Here we work with user
+input and view rendering as well as progress in the game, starting, stopping, and restarting. */
 //--------------------Business Logic------------------
 
-//Begins the game/round... Obvi
+
+/*At the begining of the round we find the divs that we will render views too.
+Create the data of the IP Address entries that are use*/
 function beginRound(){
   document.getElementById('entry_table').innerHTML = "";
   ipAttempts = [];
