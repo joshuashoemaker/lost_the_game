@@ -1,16 +1,16 @@
 //----------Constant Values and Objects---------
-let targetIpAddress = '';
-const lockoutMax = 12;
-let lockoutHits = 0;
-const amountOfIps = 20;
+let targetIpAddress = ''; // left empty, is assigned later.
+const lockoutMax = 12; //How many chances the user gets
+let lockoutHits = 0; 
+const amountOfIps = 20; //amount of entries to chohose from
 let ipAttempts = [];
-let time = 460000;
+let time = 460000; //Games time limit
 let lose = false;
 let win = false;
-let timerElement = document.getElementById('timer');
-let timeInterval = {};
+let timerElement = document.getElementById('timer'); //The HTML element that renders the time left
+let timeInterval = {}; //Empty object that will be turned into a timeInterval that will control the game timer.
 let score = 0;
-let winScore = 3;
+let winScore = 3; //How many rounds the game has
 
 const systemTypes = ["HIDDEN", "KALILINUX", "WINDOWSXP", "WINDOWS2000", 
                     "WINDOWS10", "REDHAT", "ANDROID4.4", "NETHUNTER"];
@@ -31,7 +31,11 @@ const Entry = function(){
 
 
 
-//-----------Helper Functions-----------
+//---------------------Helper Functions---------------------
+/*These are pure functions. They do not change the state of the 
+application so I keep these seperated from teh business logic 
+funcitons that alter the view and take in input*/
+
 function createIP() {
   let text = "";
   let possible = "0123456789";
@@ -54,13 +58,34 @@ function formatIP(ip){
 }
 
 
+/*This function is used several time to get random numbers that are used
+to get the random Longitude and Lattiudes, to select one of the IP addresses
+as the target, etc.*/
 function randomInRange(min, max, fixed){
   return (Math.random() * (max - min) + min).toFixed(fixed) * 1;
 }
 
 
+/*This function is used to return a randon alphanumeric sting that is added to
+a new Entry() object to give its 'systemName' a unique value.*/
+function createRandomName(){
+  let text = "";
+  let possible = "0123456789QWERTYUIOP_-ASDFGHJKLZXCVBNM";
+  
+  for (var i = 0; i < 10; i++)
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+  
+  return text;
+}
+
+
+/*This takes in the entry object that was instantiated by 'new Entry()'
+We return the HTML element in the form of a string. This will later be
+put into the Array htmlArray that is declared later on above the 'Business
+Logic Section'*/
 function createEntryHTML(entry){
 
+  //ES6 object destructuring 
   let {value, status, machineType, hostName, lastResponse, systemLocation} = entry;
   let ipAddress = formatIP(value);
   let htmlString = "<tbody>\
@@ -79,6 +104,10 @@ function createEntryHTML(entry){
 
 }
 
+/*This returns the array of HTML Element strings. This array is later 
+iterated through in a function to concatinate the strings together in
+'concatEntryHTMLArray().' That concatenated value is then used to render
+the entries  */
 function createEntryHTMLArray(entries){
 
   let htmlStrings = [];
@@ -91,17 +120,9 @@ function createEntryHTMLArray(entries){
 }
 
 
-function createRandomName(){
-  let text = "";
-  let possible = "0123456789QWERTYUIOP_-ASDFGHJKLZXCVBNM";
-  
-  for (var i = 0; i < 10; i++)
-    text += possible.charAt(Math.floor(Math.random() * possible.length));
-  
-  return text;
-}
 
-
+/*This funciton creates an array of Entry objects that will later be iterated
+though to render to the view.  */
 function createEntryArray(){
   
   let entries = [];
@@ -114,6 +135,8 @@ function createEntryArray(){
 }
 
 
+/*This function iterates thou the array of HTML Entry Element strings to turn them
+into one big string that will be used to render to the view. */
 function concatEntryHTMLArray(entries){
 
   let htmlString = "";
@@ -125,24 +148,26 @@ function concatEntryHTMLArray(entries){
   return htmlString;
 }
 
-
-function renderEntries(htmlString){
-  document.getElementById('entry_table').innerHTML = htmlString;
-}
-
-
+/*This function is used to extract and return the data-ip-address value from the literal
+html element that is passed into it. We need to extract this data when we click on the
+entries in the view. to perform certain tasks.*/
 function extractIpAddressFromElement(element){
   ipAddress = element.getAttribute('data-ip-value');
   return ipAddress;
 }
 
 
+/*This function finds a value among the entires that have already been genrated and returns
+that value. That value will later be assigned to a global aiable */
 function selectTargetIpAddress(entries){
   let value = entries[randomInRange(0, entries.length - 1, 0)].value;
   return value;
 }
 
 
+/*This function finds the similarity between the selected entriy and the target entry 
+and returns a number that tells how similar they were. It uses the Levenstien method 
+that is provided in a different file. */
 function compareIpAddress(value){
   let levDis = new Levenshtein(value, targetIpAddress);
   let similarCount = 10 - levDis.distance;
@@ -151,8 +176,9 @@ function compareIpAddress(value){
 
 
 
-//----------Business Logic--------
+//--------------------Business Logic------------------
 
+//Begins the game/round... Obvi
 function beginRound(){
   document.getElementById('entry_table').innerHTML = "";
   ipAttempts = [];
@@ -230,6 +256,11 @@ function wrongEntrySelected(entry, similarity){
 
   console.log(value + " was incorrect. Tries left: " + (lockoutMax - lockoutHits));
   console.log(similarity + " characters were correct. Try Again!")
+}
+
+
+function renderEntries(htmlString){
+  document.getElementById('entry_table').innerHTML = htmlString;
 }
 
 function renderSuccessPrecentage(percentage){
