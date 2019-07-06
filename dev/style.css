@@ -1,15 +1,18 @@
+html,body{
+  margin: 0px;
+  padding: 0px
+}
+
 .hidden{
     display: none;
 }
 
 .screen{
-    width: 900px;
-    height: 720px;
-    margin: 30px auto;
+    width: calc(100vw - 2px);
+    height: calc(100vh - 2px);
     border-color: #00FF00;
     border-width: 1px;
     border-style: solid;
-    border-radius: 26px;
     background-color: black;
     color: white;
     font-family: monospace;
@@ -92,10 +95,11 @@ button:hover{
 hr{
     border-color: #00ff00;
     margin: 6px 0px;
+    width: 100vw;
 }
 
 table{
-    width: 900px;
+    width: 100%;
     font-size: 14px;
 }
 
@@ -145,4 +149,8 @@ td{
 .lockoutMark{
     display: inline;
     font-size: 16px;
+}
+
+.ip{
+  color: rgb(209, 255, 191);
 }
